@@ -13,32 +13,20 @@
       .module { display: none; }
       
       /* --- 标题栏 (重点修改区域) --- */
-      #title-bar { -webkit-app-region: drag; height: 40px; background-color: #333; color: white; display: flex; align-items: center; padding-left: 12px; font-size: 14px; flex-shrink: 0; }
-      #title-bar-btns { -webkit-app-region: no-drag; margin-left: auto; display: flex; }
-      
-      .title-bar-btn {
-        width: 40px;  /* 改动：宽度从 46px 改为 40px */
-        height: 40px; /* 改动：明确高度为 40px */
-        border: none;
-        background-color: transparent;
+      #title-bar {
+        -webkit-app-region: drag; /* 这使得该区域可拖拽 */
+        height: 40px;
+        background-color: #333;
         color: white;
-        cursor: pointer;
-        outline: none;
         display: flex;
-        justify-content: center;
         align-items: center;
-        padding: 0;
+        padding-left: 12px;
+        font-size: 14px;
+        flex-shrink: 0;
       }
-      .title-bar-btn:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      #close-btn:hover {
-        background-color: #e81123;
-      }
-      .title-bar-btn svg { width: 10px; height: 10px; }
-      .title-bar-btn svg path { stroke: #FFF; stroke-width: 1.5; fill: none; }
-      #maximize-btn .icon-maximize path, #maximize-btn .icon-restore path { stroke: none; fill: #FFF; }
       
+      /* 移除了 .title-bar-btn 和相关的所有样式 */
+
       /* 其他样式保持不变... */
       .sidebar-btn { width: 100%; padding: 15px 20px; font-size: 16px; background-color: transparent; border: none; text-align: left; cursor: pointer; outline: none; }
       .sidebar-btn:hover { background-color: #d8dbdf; }
@@ -60,19 +48,7 @@
 <body>
     <div id="title-bar">
       <span>背单词软件</span>
-      <div id="title-bar-btns">
-        <button id="minimize-btn" class="title-bar-btn">
-          <svg x="0px" y="0px" viewBox="0 0 10.2 1"><path d="M0,0.5h10.2"/></svg>
-        </button>
-        <button id="maximize-btn" class="title-bar-btn">
-          <svg class="icon-maximize" viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z"/></svg>
-          <svg class="icon-restore" style="display: none;" viewBox="0 0 10.2 10.2"><path d="M2.1,0v2.1H0v8.1h8.1V8.1h2.1V0H2.1z M7.2,9.2H1.1V3.1h6.1V9.2z M9.2,7.2H8.1V2.1H3.1V1h6.1V7.2z"/></svg>
-        </button>
-        <button id="close-btn" class="title-bar-btn">
-          <svg viewBox="0 0 10 10"><path d="M0,0l10,10 M10,0L0,10"/></svg>
-        </button>
       </div>
-    </div>
 
     <div id="app-content">
         <div id="sidebar">

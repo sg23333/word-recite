@@ -1,6 +1,4 @@
-document.getElementById('minimize-btn').addEventListener('click', () => window.electronAPI.minimizeWindow());
-document.getElementById('maximize-btn').addEventListener('click', () => window.electronAPI.maximizeWindow());
-document.getElementById('close-btn').addEventListener('click', () => window.electronAPI.closeWindow());
+// 移除了文件顶部的三个 addEventListener 调用
 
 // --- 全局变量 ---
 let words = [];
@@ -56,7 +54,7 @@ function resetReciteView() {
 }
 reciteNextBtn.addEventListener('click', () => {
   currentWordIndex = (currentWordIndex + 1) % words.length;
-  updateReciteContent();
+  resetReciteView(); // 修改：点击下一个单词时重置视图
 });
 togglePosBtn.addEventListener('click', () => {
   const isHidden = posDisplay.style.visibility === 'hidden';
@@ -110,16 +108,4 @@ window.electronAPI.onLoadWords((loadedWords) => {
   showModule(reciteModule);
 });
 
-// --- 新增：监听窗口状态变化并切换图标 ---
-window.electronAPI.onWindowStateChange((isMaximized) => {
-  const maximizeIcon = document.querySelector('#maximize-btn .icon-maximize');
-  const restoreIcon = document.querySelector('#maximize-btn .icon-restore');
-  
-  if (isMaximized) {
-    maximizeIcon.style.display = 'none';
-    restoreIcon.style.display = 'block';
-  } else {
-    maximizeIcon.style.display = 'block';
-    restoreIcon.style.display = 'none';
-  }
-});
+// 移除了文件末尾的 onWindowStateChange 监听器

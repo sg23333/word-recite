@@ -8,20 +8,20 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    frame: false,
+    // --- 修改部分开始 ---
+    titleBarStyle: 'hidden',
+    titleBarOverlay: {
+      color: '#333', // 匹配您当前的标题栏背景色
+      symbolColor: 'white', // 匹配您当前的图标颜色
+      height: 40 // 匹配您当前的标题栏高度
+    },
+    // --- 修改部分结束 ---
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
   });
 
-  // --- 新增：监听窗口状态变化并发送给渲染进程 ---
-  mainWindow.on('maximize', () => {
-    mainWindow.webContents.send('window-state-changed', true);
-  });
-  mainWindow.on('unmaximize', () => {
-    mainWindow.webContents.send('window-state-changed', false);
-  });
-  // -----------------------------------------
+  // 移除了 'maximize' 和 'unmaximize' 事件监听器
 
   mainWindow.loadFile('index.html');
 
@@ -40,24 +40,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
 
-  ipcMain.on('minimize-window', () => {
-    const win = BrowserWindow.getFocusedWindow();
-    win.minimize();
-  });
-
-  ipcMain.on('maximize-window', () => {
-    const win = BrowserWindow.getFocusedWindow();
-    if (win.isMaximized()) {
-      win.unmaximize();
-    } else {
-      win.maximize();
-    }
-  });
-
-  ipcMain.on('close-window', () => {
-    const win = BrowserWindow.getFocusedWindow();
-    win.close();
-  });
+  // 移除了 'minimize-window', 'maximize-window', 和 'close-window' 的 ipcMain 监听器
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
